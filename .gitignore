@@ -1,0 +1,112 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+.env
+.venv/
+env.bak/
+venv.bak/
+Pipfile.lock
+pipenv.lock
+
+# Virtual environment scripts
+Scripts/
+senv/Scripts/
+*/Scripts/*.exe
+*/Scripts/*.bat
+*/Scripts/*.ps1
+activate
+activate.bat
+Activate.ps1
+deactivate.bat
+*.exe
+python.exe
+pythonw.exe
+pip.exe
+pip3.exe
+uvicorn.exe
+f2py.exe
+pytest.exe
+tqdm.exe
+httpx.exe
+openai.exe
+numpy-config.exe
+dotenv.exe
+distro.exe
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# API keys and secrets
+secrets.json
+*.pem
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+pytest_cache/
+
+# Logs
+logs/
+*.log
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Project-specific
+.openai
+milvus/
+data/
+.uvicorn
+*.db
