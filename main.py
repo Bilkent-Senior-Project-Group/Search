@@ -7,14 +7,26 @@ from pymilvus import MilvusClient
 import os
 import json
 import uvicorn
+import dotenv
+
+# Load environment variables from .env file
+dotenv.load_dotenv()
+
+# OpenAI API Key
+openai_api_key = os.getenv("OPENAI_API_KEY")
+if not openai_api_key:
+    raise ValueError("OPENAI_API_KEY environment variable not set.")
 
 # OpenAI API Client
-openai = OpenAI(api_key="OPENAI_KEY_PLACEHOLDER_2")
+openai = OpenAI(api_key=openai_api_key)
 
-# Milvus (Zilliz Cloud) Config
-MILVUS_URI = "https://in03-5cb306ff5a2a6e3.serverless.gcp-us-west1.cloud.zilliz.com"
-MILVUS_TOKEN = "MILVUS_TOKEN_PLACEHOLDER"
-client = MilvusClient(uri=MILVUS_URI, token=MILVUS_TOKEN)
+# Milvus uri and token should be set in the environment variables
+milvus_url = os.getenv("MILVUS_URI")
+milvus_token = os.getenv("MILVUS_TOKEN")
+if not milvus_url or not milvus_token:
+    raise ValueError("MILVUS_URL or MILVUS_TOKEN environment variable not set.")
+
+client = MilvusClient(uri=milvus_url, token=milvus_token)
 COLLECTION_NAME = "company_profiles"
 
 # Lifecycle Manager for Kafka Consumer
