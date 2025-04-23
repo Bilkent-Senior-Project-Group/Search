@@ -97,7 +97,45 @@ async def get_text_embedding(text_list):
 
 @app.post("/get_featured_companies")
 async def get_featured_companies(request: GetFeaturedRequest):
+    # Use the field names from the updated Pydantic model
+    services = request.services
+    technologies_used = request.technologies_used
     
+    print(f"Getting featured companies with filters - Services: {services}, Technologies Used: {technologies_used}")
+    
+    extracted_fields = await extract_fields_from_query(" ".join(services + technologies_used))
+
+    expertise_embedding = await get_text_embedding(extracted_fields.get("expertise", []))
+    technologies_embedding = await get_text_embedding(extracted_fields.get("technologies_used", []))
+
+    search_params = {"metric_type": "COSINE", "params": {"nprobe": 10}, "top_k": 100}
+    
+    def run_search(embedding, anns_field):
+        return client.search(
+            collection_name=COLLECTION_NAME,
+            data=[embedding],
+            anns_field=anns_field,
+            search_params=search_params,
+            output_fields=["id", "company_name", "location", "services", "location_name", "service_names"],
+        )[0]
+
+    results_expertise = run_search(expertise_embedding, "specialties")
+    results_technologies = run_search(technologies_embedding, "technologies_used")
+
+    all_results = results_expertise + results_technologies
+
+    # Create a safely serializable response
+    response = {
+        "query": str(request),
+        "extracted": {
+            "expertise": [str(e) for e in extracted_fields.get("expertise", [])],
+            "technologies_used": [str(t) for t in extracted_fields.get("technologies_used", [])]
+        },
+        "results": all_results
+    }
+
+    # Return the safely serialized response
+    return response    
 
 
 @app.post("/search")
