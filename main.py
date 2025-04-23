@@ -56,6 +56,10 @@ class SearchRequest(BaseModel):
     locations: Optional[List[int]] = None
     serviceIds: Optional[List[str]] = None
 
+class GetFeaturedRequest(BaseModel):
+    services: Optional[List[str]] = None
+    technologies_used: Optional[List[str]] = None
+
 async def extract_fields_from_query(query: str):
     response = openai.chat.completions.create(
         model="gpt-4",
@@ -90,8 +94,11 @@ async def get_text_embedding(text_list):
     response = openai.embeddings.create(input=text, model="text-embedding-ada-002")
     return response.data[0].embedding if response.data else [0.0] * 1536
 
-@app.post("/search")
-# Update the search_companies function to ensure all data is serializable
+
+@app.post("/get_featured_companies")
+async def get_featured_companies(request: GetFeaturedRequest):
+    
+
 
 @app.post("/search")
 async def search_companies(request: SearchRequest):
