@@ -42,6 +42,6 @@ jobs:
           docker push public.ecr.aws/a9t8d2b2/search:latest
 
       # Step 6: Update ECS
-      #- name: Update ECS service
-      #  run: |
-      #    aws ecs update-service --cluster companyhubservice --service machinelearning-service-y9kjzpjk --force-new-deployment --region eu-north-1
+      - name: Update ECS service
+        run: |
+          aws ecs update-service --cluster companyhubservice --service search-service-fz69s5gk --force-new-deployment --region eu-north-1
