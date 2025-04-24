@@ -44,4 +44,4 @@ jobs:
       # Step 6: Update ECS
       - name: Update ECS service
         run: |
-          aws ecs update-service --cluster companyhubservice --service search-service-fz69s5gk --force-new-deployment --region eu-north-1
+          aws ecs update-service --cluster companyhubservice --service search-service-gfv87bwh --force-new-deployment --region eu-north-1
